@@ -20,6 +20,19 @@ under the License.
     xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
+    <repositories>
+        <repository>
+            <id>cp-flink-releases</id>
+            <url>https://packages.confluent.io/maven</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </repository>
+    </repositories>
+
     <parent>
         <groupId>org.apache.flink</groupId>
         <artifactId>flink-kubernetes-operator-parent</artifactId>
@@ -30,22 +43,25 @@ under the License.
     <artifactId>flink-sql-runner-example</artifactId>
     <name>Flink SQL Runner Example</name>
 
-    <!-- Given that this is an example skip maven deployment -->
+    <!-- For flink.version see https://packages.confluent.io/maven/io/confluent/flink/flink-streaming-java/ -->
     <properties>
         <maven.deploy.skip>true</maven.deploy.skip>
+        <flink.version>2.1.1-cp2</flink.version>
+        <maven.compiler.source>11</maven.compiler.source>
+        <maven.compiler.target>11</maven.compiler.target>
     </properties>
 
     <dependencies>
         <!-- Apache Flink dependencies -->
         <!-- These dependencies are provided, because they should not be packaged into the JAR file. -->
         <dependency>
-            <groupId>org.apache.flink</groupId>
+            <groupId>io.confluent.flink</groupId>
             <artifactId>flink-streaming-java</artifactId>
             <version>${flink.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>org.apache.flink</groupId>
+            <groupId>io.confluent.flink</groupId>
             <artifactId>flink-table-api-java</artifactId>
             <version>${flink.version}</version>
             <scope>provided</scope>
@@ -55,7 +71,7 @@ under the License.
         <!-- Example:
 
         <dependency>
-            <groupId>org.apache.flink</groupId>
+            <groupId>io.confluent.flink</groupId>
             <artifactId>flink-connector-kafka</artifactId>
             <version>${flink.version}</version>
         </dependency>
