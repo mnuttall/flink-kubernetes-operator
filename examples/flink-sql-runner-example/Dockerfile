@@ -21,3 +21,9 @@ FROM confluentinc/cp-flink:2.1.2-cp1-java11-amd64
 RUN mkdir /opt/flink/usrlib
 ADD target/flink-sql-runner-example-*.jar /opt/flink/usrlib/sql-runner.jar
 ADD sql-scripts /opt/flink/usrlib/sql-scripts
+
+# Copy Confluent Kafka connector and kafka-clients to Flink lib directory
+COPY target/dependency/*.jar /opt/flink/lib/
+
+COPY ibm-ep-udf.jar /opt/flink/lib/ibm-ep-udf.jar
+ADD volume /opt/flink/volume
